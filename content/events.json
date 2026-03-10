@@ -13,6 +13,12 @@
       "time": "18:00",
       "location": "Náměstí Vlašim",
       "description": "Vystoupení na letním festivalu"
+    },
+    {
+      "time": "20:00",
+      "title": "Test akce",
+      "date": "2026-03-10",
+      "location": "Benešov test"
     }
   ]
 }
