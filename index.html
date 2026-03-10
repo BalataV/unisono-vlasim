@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Unisono Vlašim - Česká hudební kapela. Koncerty, hudba, fotogalerie a kontakt.">
+    <title>Unisono Vlašim | Hudební kapela</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="cs">CZ</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <img src="images/logo.png" alt="Unisono Vlašim">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#home" data-cs="Domů" data-en="Home">Domů</a></li>
+                <li><a href="#about" data-cs="O nás" data-en="About">O nás</a></li>
+                <li><a href="#music" data-cs="Hudba" data-en="Music">Hudba</a></li>
+                <li><a href="#gallery" data-cs="Galerie" data-en="Gallery">Galerie</a></li>
+                <li><a href="#events" data-cs="Akce" data-en="Events">Akce</a></li>
+                <li><a href="#contact" data-cs="Kontakt" data-en="Contact">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <img src="images/logo.png" alt="Unisono Vlašim" class="hero-logo">
+            <p class="hero-subtitle" data-cs="Hudební kapela z Vlašimi" data-en="Music band from Vlašim">Hudební kapela z Vlašimi</p>
+            <a href="#music" class="btn btn-primary" data-cs="Poslechnout si" data-en="Listen Now">Poslechnout si</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title" data-cs="O nás" data-en="About Us">O nás</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-cs="Unisono je hudební kapela z Vlašimi, která přináší svěží hudbu plnou energie a emocí. Hrajeme na různých akcích, svatbách, firemních večírcích a festivalech."
+                       data-en="Unisono is a music band from Vlašim, bringing fresh music full of energy and emotions. We play at various events, weddings, corporate parties and festivals.">
+                        Unisono je hudební kapela z Vlašimi, která přináší svěží hudbu plnou energie a emocí. Hrajeme na různých akcích, svatbách, firemních večírcích a festivalech.
+                    </p>
+                    <p data-cs="Náš repertoár zahrnuje širokou škálu žánrů od popu, rocku až po jazzové skladby. Každé vystoupení je pro nás jedinečné a snažíme se, aby si ho užili všichni přítomní."
+                       data-en="Our repertoire includes a wide range of genres from pop, rock to jazz compositions. Every performance is unique for us and we try to make sure everyone enjoys it.">
+                        Náš repertoár zahrnuje širokou škálu žánrů od popu, rocku až po jazzové skladby. Každé vystoupení je pro nás jedinečné a snažíme se, aby si ho užili všichni přítomní.
+                    </p>
+                    <a href="#contact" class="btn btn-secondary" data-cs="Kontaktujte nás" data-en="Contact Us">Kontaktujte nás</a>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <span data-cs="Fotka kapely" data-en="Band Photo">Fotka kapely</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="section music">
+        <div class="container">
+            <h2 class="section-title" data-cs="Naše hudba" data-en="Our Music">Naše hudba</h2>
+            <p class="section-subtitle" data-cs="Poslechněte si ukázky z našeho repertoáru" data-en="Listen to samples from our repertoire">Poslechněte si ukázky z našeho repertoáru</p>
+
+            <div class="music-player">
+                <div class="track" data-src="audio/kiss_me.mp3">
+                    <div class="track-info">
+                        <span class="track-number">01</span>
+                        <span class="track-name">Kiss Me</span>
+                    </div>
+                    <div class="track-controls">
+                        <button class="play-btn" aria-label="Play">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <span class="track-duration">0:00</span>
+                    </div>
+                </div>
+
+                <div class="track" data-src="audio/nothing_compares_2_U.mp3">
+                    <div class="track-info">
+                        <span class="track-number">02</span>
+                        <span class="track-name">Nothing Compares 2 U</span>
+                    </div>
+                    <div class="track-controls">
+                        <button class="play-btn" aria-label="Play">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <span class="track-duration">0:00</span>
+                    </div>
+                </div>
+
+                <div class="track" data-src="audio/stand_by_me.mp3">
+                    <div class="track-info">
+                        <span class="track-number">03</span>
+                        <span class="track-name">Stand By Me</span>
+                    </div>
+                    <div class="track-controls">
+                        <button class="play-btn" aria-label="Play">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <span class="track-duration">0:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <div class="container">
+            <h2 class="section-title" data-cs="Galerie" data-en="Gallery">Galerie</h2>
+            <p class="section-subtitle" data-cs="Fotky z našich vystoupení" data-en="Photos from our performances">Fotky z našich vystoupení</p>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery items will be loaded dynamically -->
+                <div class="gallery-placeholder">
+                    <p data-cs="Fotky budou brzy přidány" data-en="Photos coming soon">Fotky budou brzy přidány</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="section events">
+        <div class="container">
+            <h2 class="section-title" data-cs="Kde hrajeme" data-en="Upcoming Events">Kde hrajeme</h2>
+            <p class="section-subtitle" data-cs="Přijďte se na nás podívat" data-en="Come see us live">Přijďte se na nás podívat</p>
+
+            <div class="events-list" id="events-list">
+                <!-- Events will be loaded dynamically from CMS -->
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="event-day">15</span>
+                        <span class="event-month" data-cs="Bře" data-en="Mar">Bře</span>
+                    </div>
+                    <div class="event-info">
+                        <h3 class="event-title">Jarní koncert</h3>
+                        <p class="event-location">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            Kulturní dům Vlašim
+                        </p>
+                        <p class="event-time">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            20:00
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="events-note" data-cs="Pro aktuální informace nás sledujte na sociálních sítích nebo nás kontaktujte."
+               data-en="For current information, follow us on social media or contact us.">
+                Pro aktuální informace nás sledujte na sociálních sítích nebo nás kontaktujte.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" data-cs="Kontakt" data-en="Contact">Kontakt</h2>
+            <p class="section-subtitle" data-cs="Máte zájem o vystoupení? Napište nám!" data-en="Interested in booking? Write to us!">Máte zájem o vystoupení? Napište nám!</p>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        <div>
+                            <strong>Email</strong>
+                            <a href="mailto:info@unisonovlasim.cz">info@unisonovlasim.cz</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        <div>
+                            <strong data-cs="Město" data-en="City">Město</strong>
+                            <span>Vlašim, Česká republika</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="contact">
+                    <p class="hidden">
+                        <label>Don't fill this out: <input name="bot-field"></label>
+                    </p>
+                    <div class="form-group">
+                        <label for="name" data-cs="Jméno" data-en="Name">Jméno</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-cs="Email" data-en="Email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-cs="Zpráva" data-en="Message">Zpráva</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-cs="Odeslat zprávu" data-en="Send Message">Odeslat zprávu</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Unisono Vlašim">
+                </div>
+                <div class="footer-links">
+                    <a href="#home" data-cs="Domů" data-en="Home">Domů</a>
+                    <a href="#about" data-cs="O nás" data-en="About">O nás</a>
+                    <a href="#music" data-cs="Hudba" data-en="Music">Hudba</a>
+                    <a href="#contact" data-cs="Kontakt" data-en="Contact">Kontakt</a>
+                </div>
+                <div class="footer-social">
+                    <!-- Add social links here -->
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> Unisono Vlašim. <span data-cs="Všechna práva vyhrazena." data-en="All rights reserved.">Všechna práva vyhrazena.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

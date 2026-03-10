@@ -1,0 +1,85 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Publish mode - allows drafts
+publish_mode: editorial_workflow
+
+# Media files
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Locale
+locale: "cs"
+
+# Collections
+collections:
+  # Events / Akce
+  - name: "events"
+    label: "Akce / Events"
+    label_singular: "Akce"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Název akce", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Čas", name: "time", widget: "string", default: "20:00" }
+      - { label: "Místo", name: "location", widget: "string" }
+      - { label: "Popis", name: "description", widget: "text", required: false }
+      - { label: "Odkaz na událost", name: "link", widget: "string", required: false }
+    sortable_fields: ["date", "title"]
+
+  # Gallery / Galerie
+  - name: "gallery"
+    label: "Galerie / Gallery"
+    label_singular: "Fotka"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Název", name: "title", widget: "string" }
+      - { label: "Obrázek", name: "image", widget: "image" }
+      - { label: "Popis", name: "description", widget: "text", required: false }
+      - { label: "Datum", name: "date", widget: "datetime", required: false }
+      - { label: "Kategorie", name: "category", widget: "select", options: ["koncert", "backstage", "promo"], default: "koncert" }
+
+  # News / Novinky
+  - name: "news"
+    label: "Novinky / News"
+    label_singular: "Novinka"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Titulek", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime" }
+      - { label: "Obsah (CZ)", name: "content_cs", widget: "markdown" }
+      - { label: "Obsah (EN)", name: "content_en", widget: "markdown", required: false }
+      - { label: "Obrázek", name: "image", widget: "image", required: false }
+      - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+
+  # Site Settings / Nastavení webu
+  - name: "settings"
+    label: "Nastavení webu"
+    files:
+      - label: "O kapele"
+        name: "about"
+        file: "content/about.json"
+        fields:
+          - { label: "O nás (CZ)", name: "about_cs", widget: "markdown" }
+          - { label: "O nás (EN)", name: "about_en", widget: "markdown" }
+          - { label: "Fotka kapely", name: "band_photo", widget: "image", required: false }
+
+      - label: "Kontaktní údaje"
+        name: "contact"
+        file: "content/contact.json"
+        fields:
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Telefon", name: "phone", widget: "string", required: false }
+          - { label: "Facebook", name: "facebook", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "YouTube", name: "youtube", widget: "string", required: false }
