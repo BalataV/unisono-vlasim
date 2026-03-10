@@ -11,33 +11,39 @@ locale: "cs"
 
 # Collections
 collections:
-  # Events / Akce - single file with list
+  # Events / Akce
   - name: "events"
     label: "Akce / Events"
-    file: "content/events.json"
-    fields:
+    files:
       - label: "Seznam akcí"
         name: "events"
-        widget: "list"
+        file: "content/events.json"
         fields:
-          - { label: "Název akce", name: "title", widget: "string" }
-          - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", picker_utc: true }
-          - { label: "Čas", name: "time", widget: "string", default: "20:00" }
-          - { label: "Místo", name: "location", widget: "string" }
-          - { label: "Popis", name: "description", widget: "text", required: false }
+          - label: "Akce"
+            name: "events"
+            widget: "list"
+            fields:
+              - { label: "Název akce", name: "title", widget: "string" }
+              - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", picker_utc: true }
+              - { label: "Čas", name: "time", widget: "string", default: "20:00" }
+              - { label: "Místo", name: "location", widget: "string" }
+              - { label: "Popis", name: "description", widget: "text", required: false }
 
-  # Gallery / Galerie - single file with list
+  # Gallery / Galerie
   - name: "gallery"
     label: "Galerie / Gallery"
-    file: "content/gallery.json"
-    fields:
-      - label: "Fotky"
-        name: "photos"
-        widget: "list"
+    files:
+      - label: "Fotogalerie"
+        name: "gallery"
+        file: "content/gallery.json"
         fields:
-          - { label: "Název", name: "title", widget: "string" }
-          - { label: "Obrázek", name: "image", widget: "image" }
-          - { label: "Popis", name: "description", widget: "text", required: false }
+          - label: "Fotky"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "Název", name: "title", widget: "string" }
+              - { label: "Obrázek", name: "image", widget: "image" }
+              - { label: "Popis", name: "description", widget: "text", required: false }
 
   # Site Settings / Nastavení webu
   - name: "settings"
