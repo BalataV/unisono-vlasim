@@ -2,9 +2,6 @@ backend:
   name: git-gateway
   branch: main
 
-# Publish mode - allows drafts
-publish_mode: editorial_workflow
-
 # Media files
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -14,53 +11,33 @@ locale: "cs"
 
 # Collections
 collections:
-  # Events / Akce
+  # Events / Akce - single file with list
   - name: "events"
     label: "Akce / Events"
-    label_singular: "Akce"
-    folder: "content/events"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    format: "json"
+    file: "content/events.json"
     fields:
-      - { label: "Název akce", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Čas", name: "time", widget: "string", default: "20:00" }
-      - { label: "Místo", name: "location", widget: "string" }
-      - { label: "Popis", name: "description", widget: "text", required: false }
-      - { label: "Odkaz na událost", name: "link", widget: "string", required: false }
-    sortable_fields: ["date", "title"]
+      - label: "Seznam akcí"
+        name: "events"
+        widget: "list"
+        fields:
+          - { label: "Název akce", name: "title", widget: "string" }
+          - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", picker_utc: true }
+          - { label: "Čas", name: "time", widget: "string", default: "20:00" }
+          - { label: "Místo", name: "location", widget: "string" }
+          - { label: "Popis", name: "description", widget: "text", required: false }
 
-  # Gallery / Galerie
+  # Gallery / Galerie - single file with list
   - name: "gallery"
     label: "Galerie / Gallery"
-    label_singular: "Fotka"
-    folder: "content/gallery"
-    create: true
-    slug: "{{slug}}"
-    format: "json"
+    file: "content/gallery.json"
     fields:
-      - { label: "Název", name: "title", widget: "string" }
-      - { label: "Obrázek", name: "image", widget: "image" }
-      - { label: "Popis", name: "description", widget: "text", required: false }
-      - { label: "Datum", name: "date", widget: "datetime", required: false }
-      - { label: "Kategorie", name: "category", widget: "select", options: ["koncert", "backstage", "promo"], default: "koncert" }
-
-  # News / Novinky
-  - name: "news"
-    label: "Novinky / News"
-    label_singular: "Novinka"
-    folder: "content/news"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    format: "json"
-    fields:
-      - { label: "Titulek", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime" }
-      - { label: "Obsah (CZ)", name: "content_cs", widget: "markdown" }
-      - { label: "Obsah (EN)", name: "content_en", widget: "markdown", required: false }
-      - { label: "Obrázek", name: "image", widget: "image", required: false }
-      - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+      - label: "Fotky"
+        name: "photos"
+        widget: "list"
+        fields:
+          - { label: "Název", name: "title", widget: "string" }
+          - { label: "Obrázek", name: "image", widget: "image" }
+          - { label: "Popis", name: "description", widget: "text", required: false }
 
   # Site Settings / Nastavení webu
   - name: "settings"

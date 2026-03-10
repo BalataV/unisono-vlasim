@@ -267,7 +267,8 @@ async function loadEvents() {
         const response = await fetch('content/events.json');
         if (!response.ok) return;
 
-        const events = await response.json();
+        const data = await response.json();
+        const events = data.events || [];
         const eventsList = document.getElementById('events-list');
         const lang = localStorage.getItem('lang') || 'cs';
 
@@ -318,12 +319,13 @@ async function loadGallery() {
         const response = await fetch('content/gallery.json');
         if (!response.ok) return;
 
-        const gallery = await response.json();
+        const data = await response.json();
+        const photos = data.photos || [];
         const galleryGrid = document.getElementById('gallery-grid');
 
-        if (gallery.length === 0) return;
+        if (photos.length === 0) return;
 
-        galleryGrid.innerHTML = gallery.map(item => `
+        galleryGrid.innerHTML = photos.map(item => `
             <div class="gallery-item" onclick="openLightbox('${item.image}')">
                 <img src="${item.image}" alt="${item.title}" loading="lazy">
             </div>
