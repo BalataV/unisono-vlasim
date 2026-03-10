@@ -264,15 +264,22 @@ function initScrollAnimations() {
 // ================================
 async function loadEvents() {
     try {
-        const response = await fetch('content/events.json');
-        if (!response.ok) return;
+        const response = await fetch('content/events.json', { cache: 'no-store' });
+        if (!response.ok) {
+            console.log('Events response not ok:', response.status);
+            return;
+        }
 
         const data = await response.json();
+        console.log('Events data loaded:', data);
         const events = data.events || [];
         const eventsList = document.getElementById('events-list');
         const lang = localStorage.getItem('lang') || 'cs';
 
-        if (events.length === 0) return;
+        if (events.length === 0) {
+            console.log('No events found');
+            return;
+        }
 
         eventsList.innerHTML = events.map(event => {
             const date = new Date(event.date);
@@ -316,14 +323,21 @@ async function loadEvents() {
 // ================================
 async function loadGallery() {
     try {
-        const response = await fetch('content/gallery.json');
-        if (!response.ok) return;
+        const response = await fetch('content/gallery.json', { cache: 'no-store' });
+        if (!response.ok) {
+            console.log('Gallery response not ok:', response.status);
+            return;
+        }
 
         const data = await response.json();
+        console.log('Gallery data loaded:', data);
         const photos = data.photos || [];
         const galleryGrid = document.getElementById('gallery-grid');
 
-        if (photos.length === 0) return;
+        if (photos.length === 0) {
+            console.log('No photos found');
+            return;
+        }
 
         galleryGrid.innerHTML = photos.map(item => `
             <div class="gallery-item" onclick="openLightbox('${item.image}')">
