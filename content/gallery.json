@@ -1,19 +1,14 @@
 {
   "photos": [
     {
-      "title": "Koncert 2024",
-      "image": "/images/uploads/koncert1.jpg",
-      "description": "Vystoupení kapely Unisono"
-    },
-    {
-      "title": "Letní akce",
-      "image": "/images/uploads/koncert2.jpg",
-      "description": "Letní vystoupení"
-    },
-    {
       "title": "Hudební noty",
       "image": "/images/uploads/koncert3.jpg",
       "description": ""
+    },
+    {
+      "image": "/images/uploads/kapela49.jpg",
+      "title": "Petr na kytaře",
+      "description": "Petr test popis"
     }
   ]
 }
