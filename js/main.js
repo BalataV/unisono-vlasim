@@ -462,3 +462,19 @@ function closeLightbox() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
 });
+
+// ================================
+// Dance Filter
+// ================================
+document.querySelectorAll('.dance-filter').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.dance-filter').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const selected = this.dataset.dance;
+        document.querySelectorAll('.dance-card').forEach(card => {
+            const show = selected === 'all' || card.dataset.dance === selected;
+            card.classList.toggle('hidden', !show);
+        });
+    });
+});
