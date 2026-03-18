@@ -92,30 +92,34 @@
             <h2 class="section-title" data-cs="Kde hrajeme" data-en="Upcoming Events">Kde hrajeme</h2>
             <p class="section-subtitle" data-cs="Přijďte se na nás podívat" data-en="Come see us live">Přijďte se na nás podívat</p>
 
+            <!-- View toggle -->
+            <div class="events-view-toggle">
+                <button class="view-btn active" id="btn-list" data-cs="☰ Seznam" data-en="☰ List">☰ Seznam</button>
+                <button class="view-btn" id="btn-calendar" data-cs="📅 Kalendář" data-en="📅 Calendar">📅 Kalendář</button>
+            </div>
+
             <div class="events-list" id="events-list">
                 <!-- Events will be loaded dynamically from CMS -->
                 <div class="event-card">
                     <div class="event-date">
-                        <span class="event-day">15</span>
-                        <span class="event-month" data-cs="Bře" data-en="Mar">Bře</span>
+                        <span class="event-day">28</span>
+                        <span class="event-month">Bře</span>
+                        <span class="event-year">2026</span>
                     </div>
                     <div class="event-info">
-                        <h3 class="event-title">Jarní koncert</h3>
+                        <h3 class="event-title">Ples HC Lev Benešov</h3>
                         <p class="event-location">
                             <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
                                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                             </svg>
-                            Kulturní dům Vlašim
-                        </p>
-                        <p class="event-time">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                            </svg>
-                            20:00
+                            Benešov – Hotel Na Poště
                         </p>
                     </div>
                 </div>
             </div>
+
+            <!-- Calendar view (hidden by default) -->
+            <div id="events-calendar" class="events-calendar hidden"></div>
 
             <p class="events-note" data-cs="Pro aktuální informace nás sledujte na sociálních sítích nebo nás kontaktujte."
                data-en="For current information, follow us on social media or contact us.">
@@ -130,7 +134,7 @@
             <h2 class="section-title" data-cs="Naše hudba" data-en="Our Music">Naše hudba</h2>
             <p class="section-subtitle" data-cs="Poslechněte si ukázky z našeho repertoáru" data-en="Listen to samples from our repertoire">Poslechněte si ukázky z našeho repertoáru</p>
 
-            <div class="music-player">
+            <div class="music-player" id="music-player">
                 <div class="track" data-src="audio/kiss_me.mp3">
                     <div class="track-info">
                         <span class="track-number">01</span>
@@ -197,6 +201,35 @@
                             <div class="progress"></div>
                         </div>
                         <span class="track-duration">0:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube Videos -->
+            <div class="video-section">
+                <h3 class="video-section-title" data-cs="Videa z vystoupení" data-en="Performance Videos">Videa z vystoupení</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/OqfBAMOCP00"
+                                    title="Unisono 2020 GBN Ples"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <p class="video-title">Unisono 2020 – GBN Ples</p>
+                    </div>
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/l9iy8l_HkfY"
+                                    title="Unisono 2018 KC Benesov"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <p class="video-title">Unisono 2018 – KC Benešov</p>
                     </div>
                 </div>
             </div>

@@ -379,6 +379,9 @@ function initScrollToTop() {
 // ================================
 // Load Events
 // ================================
+// ---- Calendar state ----
+const calState = { year: 0, month: 0, events: [] };
+
 async function loadEvents() {
     try {
         const res = await fetch('content/events.json', { cache: 'no-store' });
@@ -393,6 +396,7 @@ async function loadEvents() {
             en: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
         };
 
+        // Render list view
         document.getElementById('events-list').innerHTML = events.map(event => {
             const d = new Date(event.date);
             return `
@@ -415,7 +419,128 @@ async function loadEvents() {
                     </div>
                 </div>`;
         }).join('');
+
+        // Set calendar start to first upcoming event month
+        calState.events = events;
+        const today = new Date(); today.setHours(0,0,0,0);
+        const upcoming = events.find(e => new Date(e.date) >= today);
+        const startDate = upcoming ? new Date(upcoming.date) : today;
+        calState.year  = startDate.getFullYear();
+        calState.month = startDate.getMonth();
+        renderCalendarView();
+
+        // Toggle buttons
+        const btnList = document.getElementById('btn-list');
+        const btnCal  = document.getElementById('btn-calendar');
+        if (btnList && btnCal) {
+            btnList.addEventListener('click', () => {
+                document.getElementById('events-list').classList.remove('hidden');
+                document.getElementById('events-calendar').classList.add('hidden');
+                btnList.classList.add('active');
+                btnCal.classList.remove('active');
+            });
+            btnCal.addEventListener('click', () => {
+                document.getElementById('events-list').classList.add('hidden');
+                document.getElementById('events-calendar').classList.remove('hidden');
+                btnCal.classList.add('active');
+                btnList.classList.remove('active');
+            });
+        }
     } catch(e) { /* keep default */ }
+}
+
+function renderCalendarView() {
+    const { year, month, events } = calState;
+    const lang = localStorage.getItem('lang') || 'cs';
+
+    const monthNames = {
+        cs: ['Leden','Únor','Březen','Duben','Květen','Červen','Červenec','Srpen','Září','Říjen','Listopad','Prosinec'],
+        en: ['January','February','March','April','May','June','July','August','September','October','November','December']
+    };
+    const dayNames = {
+        cs: ['Po','Út','St','Čt','Pá','So','Ne'],
+        en: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+    };
+
+    // Build event map keyed by "Y-M-D"
+    const eventMap = {};
+    events.forEach(e => {
+        const d = new Date(e.date);
+        const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+        if (!eventMap[key]) eventMap[key] = [];
+        eventMap[key].push(e);
+    });
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay  = new Date(year, month + 1, 0);
+    const startDow = (firstDay.getDay() + 6) % 7; // Mon=0
+    const today    = new Date(); today.setHours(0,0,0,0);
+
+    let html = `
+        <div class="cal-header">
+            <button class="cal-nav" id="cal-prev">&#8249;</button>
+            <span class="cal-month-title">${monthNames[lang][month]} <span class="cal-year">${year}</span></span>
+            <button class="cal-nav" id="cal-next">&#8250;</button>
+        </div>
+        <div class="cal-grid">
+            ${dayNames[lang].map(d => `<div class="cal-day-name">${d}</div>`).join('')}`;
+
+    for (let i = 0; i < startDow; i++) html += `<div class="cal-cell cal-empty"></div>`;
+
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+        const key = `${year}-${month}-${day}`;
+        const dayEvs = eventMap[key] || [];
+        const cellDate = new Date(year, month, day); cellDate.setHours(0,0,0,0);
+        const isToday = cellDate.getTime() === today.getTime();
+        const isPast  = cellDate < today;
+
+        let cls = 'cal-cell';
+        if (isToday) cls += ' cal-today';
+        if (isPast)  cls += ' cal-past';
+        if (dayEvs.length) cls += ' cal-has-event';
+
+        const evAttr = dayEvs.length
+            ? ` data-events='${JSON.stringify(dayEvs).replace(/'/g, "\u2019")}'`
+            : '';
+
+        html += `<div class="${cls}"${evAttr}>
+            <span class="cal-day-num">${day}</span>
+            ${dayEvs.length ? `<div class="cal-dots">${dayEvs.map(() => '<span class="cal-dot"></span>').join('')}</div>` : ''}
+        </div>`;
+    }
+
+    html += `</div><div class="cal-event-detail" id="cal-event-detail"></div>`;
+
+    const container = document.getElementById('events-calendar');
+    container.innerHTML = html;
+
+    // Navigation
+    document.getElementById('cal-prev').addEventListener('click', () => {
+        calState.month--;
+        if (calState.month < 0) { calState.month = 11; calState.year--; }
+        renderCalendarView();
+    });
+    document.getElementById('cal-next').addEventListener('click', () => {
+        calState.month++;
+        if (calState.month > 11) { calState.month = 0; calState.year++; }
+        renderCalendarView();
+    });
+
+    // Day click → show event detail
+    container.querySelectorAll('.cal-has-event').forEach(cell => {
+        cell.addEventListener('click', () => {
+            const raw = cell.getAttribute('data-events').replace(/\u2019/g, "'");
+            const evs = JSON.parse(raw);
+            container.querySelectorAll('.cal-cell').forEach(c => c.classList.remove('cal-selected'));
+            cell.classList.add('cal-selected');
+            document.getElementById('cal-event-detail').innerHTML = evs.map(ev => `
+                <div class="cal-detail-card">
+                    <h4>${ev.title}</h4>
+                    <p>📍 ${ev.location}</p>
+                    <p>🕐 ${ev.time}</p>
+                </div>`).join('');
+        });
+    });
 }
 
 // ================================
