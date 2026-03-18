@@ -420,7 +420,7 @@ async function loadEvents() {
                 </div>`;
         }).join('');
 
-        // Set calendar start to first upcoming event month
+        // Set calendar to first upcoming event month and render
         calState.events = events;
         const today = new Date(); today.setHours(0,0,0,0);
         const upcoming = events.find(e => new Date(e.date) >= today);
@@ -428,24 +428,6 @@ async function loadEvents() {
         calState.year  = startDate.getFullYear();
         calState.month = startDate.getMonth();
         renderCalendarView();
-
-        // Toggle buttons
-        const btnList = document.getElementById('btn-list');
-        const btnCal  = document.getElementById('btn-calendar');
-        if (btnList && btnCal) {
-            btnList.addEventListener('click', () => {
-                document.getElementById('events-list').classList.remove('hidden');
-                document.getElementById('events-calendar').classList.add('hidden');
-                btnList.classList.add('active');
-                btnCal.classList.remove('active');
-            });
-            btnCal.addEventListener('click', () => {
-                document.getElementById('events-list').classList.add('hidden');
-                document.getElementById('events-calendar').classList.remove('hidden');
-                btnCal.classList.add('active');
-                btnList.classList.remove('active');
-            });
-        }
     } catch(e) { /* keep default */ }
 }
 

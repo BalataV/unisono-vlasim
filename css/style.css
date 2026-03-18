@@ -1154,37 +1154,9 @@ img {
     font-size: 0.95rem;
 }
 
-/* ---- View toggle ---- */
-.events-view-toggle {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 32px;
-}
-
-.view-btn {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--text-light);
-    padding: 9px 24px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-family: inherit;
-    transition: all 0.25s;
-}
-
-.view-btn:hover {
-    background: rgba(95,180,177,0.15);
-    border-color: var(--primary-color);
-    color: var(--white);
-}
-
-.view-btn.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--bg-dark);
-    font-weight: 600;
+/* Druhý nadpis sekce (Kde hrajeme) — oddělen od kalendáře */
+.events-list-title {
+    margin-top: 80px;
 }
 
 /* ---- Calendar ---- */

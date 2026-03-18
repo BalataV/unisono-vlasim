@@ -93,14 +93,15 @@
     <!-- Events Section -->
     <section id="events" class="section events">
         <div class="container">
-            <h2 class="section-title" data-cs="Kde hrajeme" data-en="Upcoming Events">Kde hrajeme</h2>
-            <p class="section-subtitle" data-cs="Přijďte se na nás podívat" data-en="Come see us live">Přijďte se na nás podívat</p>
 
-            <!-- View toggle -->
-            <div class="events-view-toggle">
-                <button class="view-btn active" id="btn-list" data-cs="☰ Seznam" data-en="☰ List">☰ Seznam</button>
-                <button class="view-btn" id="btn-calendar" data-cs="📅 Kalendář" data-en="📅 Calendar">📅 Kalendář</button>
-            </div>
+            <!-- Kalendář -->
+            <h2 class="section-title" data-cs="Kdy hrajeme" data-en="When We Play">Kdy hrajeme</h2>
+            <p class="section-subtitle" data-cs="Přehled nadcházejících akcí" data-en="Overview of upcoming events">Přehled nadcházejících akcí</p>
+            <div id="events-calendar" class="events-calendar"></div>
+
+            <!-- Seznam -->
+            <h2 class="section-title events-list-title" data-cs="Kde hrajeme" data-en="Upcoming Events">Kde hrajeme</h2>
+            <p class="section-subtitle" data-cs="Přijďte se na nás podívat" data-en="Come see us live">Přijďte se na nás podívat</p>
 
             <div class="events-list" id="events-list">
                 <!-- Events will be loaded dynamically from CMS -->
@@ -121,9 +122,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Calendar view (hidden by default) -->
-            <div id="events-calendar" class="events-calendar hidden"></div>
 
             <p class="events-note" data-cs="Pro aktuální informace nás sledujte na sociálních sítích nebo nás kontaktujte."
                data-en="For current information, follow us on social media or contact us.">
