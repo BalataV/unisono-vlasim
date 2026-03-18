@@ -1040,6 +1040,15 @@ img {
     margin-top: 3px;
 }
 
+.event-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    opacity: 0.65;
+    margin-top: 2px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding-top: 3px;
+}
+
 .event-info {
     flex: 1;
     display: flex;

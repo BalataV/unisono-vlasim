@@ -400,6 +400,7 @@ async function loadEvents() {
                     <div class="event-date">
                         <span class="event-day">${d.getDate()}</span>
                         <span class="event-month">${months[lang][d.getMonth()]}</span>
+                        <span class="event-year">${d.getFullYear()}</span>
                     </div>
                     <div class="event-info">
                         <h3 class="event-title">${event.title}</h3>
