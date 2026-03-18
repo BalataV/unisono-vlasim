@@ -89,8 +89,8 @@ function initLanguageSwitcher() {
 
         btn.addEventListener('click', function() {
             const lang = this.dataset.lang;
-            langButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+            // Sync active state across ALL lang buttons (fixed + hamburger menu)
+            langButtons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
             setLanguage(lang);
             localStorage.setItem('lang', lang);
         });

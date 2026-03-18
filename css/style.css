@@ -235,6 +235,11 @@ img {
     gap: 40px;
 }
 
+/* Lang item hidden on desktop — visible only inside mobile menu */
+.nav-lang-item {
+    display: none;
+}
+
 .nav-menu a {
     color: var(--white);
     font-weight: 500;
@@ -873,7 +878,7 @@ img {
     text-align: center;
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--secondary-color);
+    color: var(--white);
     letter-spacing: 1px;
     margin-bottom: 28px;
     text-transform: uppercase;
@@ -2013,6 +2018,35 @@ img {
     .nav-menu a { color: var(--white) !important; font-size: 1.15rem; }
     .nav-toggle { display: flex; order: 2; }
     .nav-instagram { order: 1; }
+
+    /* Lang switcher → inside hamburger menu on mobile */
+    .lang-switcher { display: none; }
+    .nav-lang-item {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255,255,255,0.12);
+        width: 100%;
+    }
+    .nav-lang-item .lang-btn {
+        padding: 8px 20px;
+        border: 1px solid rgba(255,255,255,0.25);
+        background: rgba(255,255,255,0.08);
+        color: var(--white);
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-lang-item .lang-btn.active {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    .nav-lang-item .lang-btn:hover:not(.active) {
+        background: rgba(255,255,255,0.18);
+    }
 
     .hero-title { font-size: 3.8rem; }
     .hero-location { font-size: 1.2rem; letter-spacing: 6px; }
