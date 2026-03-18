@@ -108,57 +108,63 @@ function setLanguage(lang) {
         }
     });
     document.documentElement.lang = lang;
+    if (tw.subtitle) restartTypewriter(200);
 }
 
 // ================================
 // Typewriter Effect — Hero subtitle
 // ================================
-function initTypewriter() {
-    const subtitle = document.querySelector('.hero-subtitle');
-    if (!subtitle) return;
+const typewriterPhrases = {
+    cs: ['Hudba pro vaše akce', 'Živá hudba plná energie', 'Svatby · Festivaly · Párty'],
+    en: ['Music for your events', 'Live music full of energy', 'Weddings · Festivals · Parties'],
+};
 
-    const phrases = [
-        'Hudba pro vaše akce',
-        'Živá hudba plná energie',
-        'Svatby · Festivaly · Párty',
-    ];
-    let phraseIdx = 0;
-    let charIdx = 0;
-    let deleting = false;
+const tw = { phraseIdx: 0, charIdx: 0, deleting: false, timer: null, cursor: null, subtitle: null };
 
-    // Add cursor span
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor';
-    subtitle.textContent = '';
-    subtitle.appendChild(cursor);
+function typewriterTick() {
+    const lang = localStorage.getItem('lang') || 'cs';
+    const phrases = typewriterPhrases[lang] || typewriterPhrases.cs;
+    const phrase = phrases[tw.phraseIdx % phrases.length];
 
-    function type() {
-        const phrase = phrases[phraseIdx];
-        const currentText = subtitle.textContent.replace('|', '');
-
-        if (!deleting) {
-            subtitle.textContent = phrase.slice(0, charIdx + 1);
-            subtitle.appendChild(cursor);
-            charIdx++;
-            if (charIdx === phrase.length) {
-                deleting = true;
-                setTimeout(type, 2000);
-                return;
-            }
-        } else {
-            subtitle.textContent = phrase.slice(0, charIdx - 1);
-            subtitle.appendChild(cursor);
-            charIdx--;
-            if (charIdx === 0) {
-                deleting = false;
-                phraseIdx = (phraseIdx + 1) % phrases.length;
-            }
+    if (!tw.deleting) {
+        tw.subtitle.textContent = phrase.slice(0, tw.charIdx + 1);
+        tw.subtitle.appendChild(tw.cursor);
+        tw.charIdx++;
+        if (tw.charIdx === phrase.length) {
+            tw.deleting = true;
+            tw.timer = setTimeout(typewriterTick, 2000);
+            return;
         }
-
-        setTimeout(type, deleting ? 55 : 90);
+    } else {
+        tw.subtitle.textContent = phrase.slice(0, tw.charIdx - 1);
+        tw.subtitle.appendChild(tw.cursor);
+        tw.charIdx--;
+        if (tw.charIdx === 0) {
+            tw.deleting = false;
+            tw.phraseIdx = (tw.phraseIdx + 1) % phrases.length;
+        }
     }
+    tw.timer = setTimeout(typewriterTick, tw.deleting ? 55 : 90);
+}
 
-    setTimeout(type, 1200);
+function restartTypewriter(delay) {
+    clearTimeout(tw.timer);
+    tw.phraseIdx = 0;
+    tw.charIdx = 0;
+    tw.deleting = false;
+    tw.subtitle.textContent = '';
+    tw.subtitle.appendChild(tw.cursor);
+    tw.timer = setTimeout(typewriterTick, delay);
+}
+
+function initTypewriter() {
+    tw.subtitle = document.querySelector('.hero-subtitle');
+    if (!tw.subtitle) return;
+    tw.cursor = document.createElement('span');
+    tw.cursor.className = 'cursor';
+    tw.subtitle.textContent = '';
+    tw.subtitle.appendChild(tw.cursor);
+    tw.timer = setTimeout(typewriterTick, 1200);
 }
 
 // ================================
@@ -168,24 +174,26 @@ function initHeroParticles() {
     const container = document.querySelector('.hero-particles');
     if (!container) return;
 
-    const notes = ['♩', '♪', '♫', '♬', '𝄞'];
+    const notes = ['♩', '♪', '♫', '♬', '𝄞', '♭', '♮', '♯'];
 
     function createNote() {
         const note = document.createElement('span');
         note.className = 'note';
         note.textContent = notes[Math.floor(Math.random() * notes.length)];
         note.style.left = Math.random() * 100 + '%';
-        note.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
-        const duration = Math.random() * 10 + 8;
+        note.style.fontSize = (Math.random() * 2 + 0.7) + 'rem';
+        const duration = Math.random() * 8 + 7;
         note.style.animationDuration = duration + 's';
-        note.style.animationDelay = Math.random() * 5 + 's';
+        note.style.animationDelay = '0s';
         container.appendChild(note);
-        setTimeout(() => note.remove(), (duration + 5) * 1000);
+        setTimeout(() => note.remove(), (duration + 1) * 1000);
     }
 
-    // Initial burst
-    for (let i = 0; i < 6; i++) createNote();
-    setInterval(createNote, 2000);
+    // Initial burst — more notes upfront
+    for (let i = 0; i < 18; i++) {
+        setTimeout(createNote, i * 300);
+    }
+    setInterval(createNote, 800);
 }
 
 // ================================
