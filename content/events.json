@@ -1,10 +1,148 @@
 {
   "events": [
     {
+      "date": "2026-03-28",
       "time": "20:00",
-      "title": "Test akce",
-      "date": "2026-03-10",
-      "location": "Benešov test"
+      "title": "Ples HC Lev Benešov",
+      "location": "Benešov – Hotel Na Poště"
+    },
+    {
+      "date": "2026-04-18",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "Soukromá akce"
+    },
+    {
+      "date": "2026-04-25",
+      "time": "17:00",
+      "title": "Životní jubileum – soukromá akce",
+      "location": "Horní Lhota"
+    },
+    {
+      "date": "2026-05-16",
+      "time": "17:00",
+      "title": "Životní jubileum – soukromá akce",
+      "location": "Vestec u Zvěstova"
+    },
+    {
+      "date": "2026-07-04",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "Dlouhé Pole"
+    },
+    {
+      "date": "2026-08-01",
+      "time": "18:00",
+      "title": "Letní zábava – Autocross závody",
+      "location": "Poříčí nad Sázavou"
+    },
+    {
+      "date": "2026-08-29",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "Rezervovaný termín"
+    },
+    {
+      "date": "2026-09-05",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "Bílkovice Lom"
+    },
+    {
+      "date": "2026-09-12",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "Bílkovice Lom"
+    },
+    {
+      "date": "2026-09-19",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "Dlouhé Pole"
+    },
+    {
+      "date": "2026-09-26",
+      "time": "17:00",
+      "title": "Svatba – soukromá akce",
+      "location": "DOMA na České Sibiři"
+    },
+    {
+      "date": "2026-11-21",
+      "time": "20:00",
+      "title": "Ples pro hospic Dobrého pastýře",
+      "location": "KD Čerčany"
+    },
+    {
+      "date": "2026-11-28",
+      "time": "20:00",
+      "title": "14. Basketbal ples",
+      "location": "Benešov – Hotel Na Poště"
+    },
+    {
+      "date": "2027-01-08",
+      "time": "20:00",
+      "title": "Hasičský ples",
+      "location": "Teplýšovice"
+    },
+    {
+      "date": "2027-01-09",
+      "time": "20:00",
+      "title": "Myslivecký ples spolku Háj Pecerady",
+      "location": "Týnec nad Sázavou"
+    },
+    {
+      "date": "2027-01-15",
+      "time": "20:00",
+      "title": "Firemní ples – soukromá akce",
+      "location": "Pyšely"
+    },
+    {
+      "date": "2027-01-16",
+      "time": "20:00",
+      "title": "Hasičský ples",
+      "location": "Mladá Vožice – Stará záložna"
+    },
+    {
+      "date": "2027-01-23",
+      "time": "20:00",
+      "title": "Ples automoto klubu Poříčí nad Sázavou",
+      "location": "Mrač"
+    },
+    {
+      "date": "2027-01-30",
+      "time": "20:00",
+      "title": "Hasičský ples",
+      "location": "Lešany"
+    },
+    {
+      "date": "2027-02-06",
+      "time": "20:00",
+      "title": "Ples Arcidiecézní charity Praha",
+      "location": "Praha 7 – Hotel Belvedere"
+    },
+    {
+      "date": "2027-02-20",
+      "time": "20:00",
+      "title": "Hasičský ples",
+      "location": "Divišov – sokolovna"
+    },
+    {
+      "date": "2027-02-27",
+      "time": "20:00",
+      "title": "Hasičský ples",
+      "location": "Netvořice – sokolovna"
+    },
+    {
+      "date": "2027-03-06",
+      "time": "20:00",
+      "title": "Hasičský ples",
+      "location": "Čerčany – KD"
+    },
+    {
+      "date": "2027-03-19",
+      "time": "20:00",
+      "title": "Maturitní ples gymnázia Vlašim",
+      "location": "Tábor – Palcát"
     }
   ]
 }

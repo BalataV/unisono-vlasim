@@ -274,6 +274,34 @@ img {
     color: var(--primary-color);
 }
 
+.nav-instagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--white);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.navbar.scrolled .nav-instagram {
+    color: var(--text-color);
+    background: rgba(0,0,0,0.06);
+    border-color: rgba(0,0,0,0.1);
+}
+
+.nav-instagram:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+    transform: scale(1.1);
+    box-shadow: 0 4px 14px rgba(95,180,177,0.4);
+}
+
 .nav-toggle {
     display: none;
     flex-direction: column;
