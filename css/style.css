@@ -1309,13 +1309,13 @@ img {
 }
 
 .cal-detail-card h4 {
-    color: var(--white);
+    color: #ffffff !important;
     font-size: 1.05rem;
     margin-bottom: 6px;
 }
 
 .cal-detail-card p {
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,0.88) !important;
     font-size: 0.9rem;
     margin: 0;
     line-height: 1.7;
