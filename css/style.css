@@ -1753,7 +1753,8 @@ img {
 
     .nav-menu.active { right: 0; }
     .nav-menu a { color: var(--white) !important; font-size: 1.15rem; }
-    .nav-toggle { display: flex; }
+    .nav-toggle { display: flex; order: 2; }
+    .nav-instagram { order: 1; }
 
     .hero-title { font-size: 3.8rem; }
     .hero-location { font-size: 1.2rem; letter-spacing: 6px; }
