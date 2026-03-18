@@ -3,15 +3,17 @@
 // ================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Set current year in footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
-    // Initialize all modules
     initNavigation();
+    initScrollSpy();
     initLanguageSwitcher();
     initMusicPlayer();
     initSmoothScroll();
-    initScrollAnimations();
+    initRevealAnimations();
+    initTypewriter();
+    initHeroParticles();
+    initScrollToTop();
     loadEvents();
     loadGallery();
 });
@@ -25,36 +27,52 @@ function initNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    // Scroll effect
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
 
-    // Mobile menu toggle
-    navToggle.addEventListener('click', function() {
+    navToggle.addEventListener('click', () => {
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
-    // Close menu on link click
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', () => {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.style.overflow = '';
         });
     });
 
-    // Close menu on outside click
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', e => {
         if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
+}
+
+// ================================
+// Scroll Spy — Active nav link
+// ================================
+function initScrollSpy() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                });
+            }
+        });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
 }
 
 // ================================
@@ -64,15 +82,10 @@ function initLanguageSwitcher() {
     const langButtons = document.querySelectorAll('.lang-btn');
     let currentLang = localStorage.getItem('lang') || 'cs';
 
-    // Apply saved language
     setLanguage(currentLang);
 
     langButtons.forEach(btn => {
-        if (btn.dataset.lang === currentLang) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
 
         btn.addEventListener('click', function() {
             const lang = this.dataset.lang;
@@ -85,20 +98,94 @@ function initLanguageSwitcher() {
 }
 
 function setLanguage(lang) {
-    const elements = document.querySelectorAll('[data-cs][data-en]');
-    elements.forEach(el => {
+    document.querySelectorAll('[data-cs][data-en]').forEach(el => {
         const text = el.dataset[lang];
-        if (text) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = text;
-            } else {
-                el.textContent = text;
-            }
+        if (!text) return;
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = text;
+        } else {
+            el.textContent = text;
         }
     });
-
-    // Update HTML lang attribute
     document.documentElement.lang = lang;
+}
+
+// ================================
+// Typewriter Effect — Hero subtitle
+// ================================
+function initTypewriter() {
+    const subtitle = document.querySelector('.hero-subtitle');
+    if (!subtitle) return;
+
+    const phrases = [
+        'Hudba pro vaše akce',
+        'Živá hudba plná energie',
+        'Svatby · Festivaly · Párty',
+    ];
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+
+    // Add cursor span
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    subtitle.textContent = '';
+    subtitle.appendChild(cursor);
+
+    function type() {
+        const phrase = phrases[phraseIdx];
+        const currentText = subtitle.textContent.replace('|', '');
+
+        if (!deleting) {
+            subtitle.textContent = phrase.slice(0, charIdx + 1);
+            subtitle.appendChild(cursor);
+            charIdx++;
+            if (charIdx === phrase.length) {
+                deleting = true;
+                setTimeout(type, 2000);
+                return;
+            }
+        } else {
+            subtitle.textContent = phrase.slice(0, charIdx - 1);
+            subtitle.appendChild(cursor);
+            charIdx--;
+            if (charIdx === 0) {
+                deleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+            }
+        }
+
+        setTimeout(type, deleting ? 55 : 90);
+    }
+
+    setTimeout(type, 1200);
+}
+
+// ================================
+// Hero — Floating Music Notes
+// ================================
+function initHeroParticles() {
+    const container = document.querySelector('.hero-particles');
+    if (!container) return;
+
+    const notes = ['♩', '♪', '♫', '♬', '𝄞'];
+
+    function createNote() {
+        const note = document.createElement('span');
+        note.className = 'note';
+        note.textContent = notes[Math.floor(Math.random() * notes.length)];
+        note.style.left = Math.random() * 100 + '%';
+        note.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+        const duration = Math.random() * 10 + 8;
+        note.style.animationDuration = duration + 's';
+        note.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(note);
+        setTimeout(() => note.remove(), (duration + 5) * 1000);
+    }
+
+    // Initial burst
+    for (let i = 0; i < 6; i++) createNote();
+    setInterval(createNote, 2000);
 }
 
 // ================================
@@ -114,25 +201,19 @@ function initMusicPlayer() {
         const progressBar = track.querySelector('.progress-bar');
         const progress = track.querySelector('.progress');
         const duration = track.querySelector('.track-duration');
-        const audioSrc = track.dataset.src;
+        const audio = new Audio(track.dataset.src);
 
-        // Create audio element
-        const audio = new Audio(audioSrc);
-
-        // Update duration when metadata loads
-        audio.addEventListener('loadedmetadata', function() {
+        audio.addEventListener('loadedmetadata', () => {
             duration.textContent = formatTime(audio.duration);
         });
 
-        // Update progress
-        audio.addEventListener('timeupdate', function() {
-            const percent = (audio.currentTime / audio.duration) * 100;
-            progress.style.width = percent + '%';
+        audio.addEventListener('timeupdate', () => {
+            const pct = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = pct + '%';
             duration.textContent = formatTime(audio.currentTime);
         });
 
-        // Track ended
-        audio.addEventListener('ended', function() {
+        audio.addEventListener('ended', () => {
             track.classList.remove('playing');
             playBtn.innerHTML = getPlayIcon();
             progress.style.width = '0%';
@@ -141,28 +222,37 @@ function initMusicPlayer() {
             currentTrack = null;
         });
 
-        // Play button click
-        playBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            togglePlay(audio, track, playBtn, progress);
-        });
+        playBtn.addEventListener('click', e => { e.stopPropagation(); togglePlay(audio, track, playBtn); });
+        track.addEventListener('click', () => togglePlay(audio, track, playBtn));
 
-        // Track click
-        track.addEventListener('click', function() {
-            togglePlay(audio, track, playBtn, progress);
-        });
-
-        // Progress bar click
-        progressBar.addEventListener('click', function(e) {
+        progressBar.addEventListener('click', e => {
             e.stopPropagation();
             const rect = progressBar.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = percent * audio.duration;
+            audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+        });
+
+        // Seek on drag
+        let dragging = false;
+        progressBar.addEventListener('mousedown', e => {
+            dragging = true;
+            e.stopPropagation();
+        });
+        document.addEventListener('mousemove', e => {
+            if (!dragging) return;
+            const rect = progressBar.getBoundingClientRect();
+            const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            progress.style.width = (pct * 100) + '%';
+        });
+        document.addEventListener('mouseup', e => {
+            if (!dragging) return;
+            dragging = false;
+            const rect = progressBar.getBoundingClientRect();
+            const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            audio.currentTime = pct * audio.duration;
         });
     });
 
-    function togglePlay(audio, track, playBtn, progress) {
-        // Stop current playing track
+    function togglePlay(audio, track, playBtn) {
         if (currentAudio && currentAudio !== audio) {
             currentAudio.pause();
             currentTrack.classList.remove('playing');
@@ -183,21 +273,19 @@ function initMusicPlayer() {
             currentTrack = null;
         }
     }
+}
 
-    function formatTime(seconds) {
-        if (isNaN(seconds)) return '0:00';
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs.toString().padStart(2, '0')}`;
-    }
+function formatTime(s) {
+    if (isNaN(s)) return '0:00';
+    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+}
 
-    function getPlayIcon() {
-        return '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-    }
+function getPlayIcon() {
+    return '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+}
 
-    function getPauseIcon() {
-        return '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-    }
+function getPauseIcon() {
+    return '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
 }
 
 // ================================
@@ -206,181 +294,163 @@ function initMusicPlayer() {
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
+            if (!target) return;
+            e.preventDefault();
+            const offset = target.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
         });
     });
 }
 
 // ================================
-// Scroll Animations
+// Reveal Animations
 // ================================
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+function initRevealAnimations() {
+    // Mark elements for reveal
+    const selectors = [
+        '.section-title', '.section-subtitle',
+        '.about-text', '.about-image',
+        '.track', '.event-card',
+        '.contact-item', '.contact-form',
+        '.gallery-item', '.events-note'
+    ];
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    const elements = document.querySelectorAll(selectors.join(', '));
+    elements.forEach(el => el.classList.add('reveal'));
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
+                // Stagger siblings
+                const siblings = [...entry.target.parentElement.querySelectorAll('.reveal')]
+                    .filter(el => !el.classList.contains('visible'));
+                const idx = siblings.indexOf(entry.target);
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, idx * 80);
                 observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    // Add animation class to sections
-    document.querySelectorAll('.section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
-    });
+    elements.forEach(el => observer.observe(el));
 
-    // CSS for animate-in
-    const style = document.createElement('style');
-    style.textContent = `
-        .animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
+    // Section title underline animation
+    const titleObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+                titleObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.section-title').forEach(t => titleObserver.observe(t));
 }
 
 // ================================
-// Load Events from JSON
+// Scroll To Top
+// ================================
+function initScrollToTop() {
+    const btn = document.createElement('button');
+    btn.className = 'scroll-top';
+    btn.setAttribute('aria-label', 'Scroll to top');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>`;
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ================================
+// Load Events
 // ================================
 async function loadEvents() {
     try {
-        const response = await fetch('content/events.json', { cache: 'no-store' });
-        if (!response.ok) {
-            console.log('Events response not ok:', response.status);
-            return;
-        }
-
-        const data = await response.json();
-        console.log('Events data loaded:', data);
+        const res = await fetch('content/events.json', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
         const events = data.events || [];
-        const eventsList = document.getElementById('events-list');
+        if (!events.length) return;
+
         const lang = localStorage.getItem('lang') || 'cs';
+        const months = {
+            cs: ['Led','Úno','Bře','Dub','Kvě','Čvn','Čvc','Srp','Zář','Říj','Lis','Pro'],
+            en: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+        };
 
-        if (events.length === 0) {
-            console.log('No events found');
-            return;
-        }
-
-        eventsList.innerHTML = events.map(event => {
-            const date = new Date(event.date);
-            const months = {
-                cs: ['Led', 'Úno', 'Bře', 'Dub', 'Kvě', 'Čvn', 'Čvc', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro'],
-                en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            };
-
+        document.getElementById('events-list').innerHTML = events.map(event => {
+            const d = new Date(event.date);
             return `
                 <div class="event-card">
                     <div class="event-date">
-                        <span class="event-day">${date.getDate()}</span>
-                        <span class="event-month">${months[lang][date.getMonth()]}</span>
+                        <span class="event-day">${d.getDate()}</span>
+                        <span class="event-month">${months[lang][d.getMonth()]}</span>
                     </div>
                     <div class="event-info">
                         <h3 class="event-title">${event.title}</h3>
                         <p class="event-location">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                             ${event.location}
                         </p>
                         <p class="event-time">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                            </svg>
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
                             ${event.time}
                         </p>
                     </div>
-                </div>
-            `;
+                </div>`;
         }).join('');
-    } catch (e) {
-        // Events file doesn't exist yet, keep default content
-        console.log('Events file not found, using default content');
-    }
+    } catch(e) { /* keep default */ }
 }
 
 // ================================
-// Load Gallery from JSON
+// Load Gallery
 // ================================
 async function loadGallery() {
     try {
-        const response = await fetch('content/gallery.json', { cache: 'no-store' });
-        if (!response.ok) {
-            console.log('Gallery response not ok:', response.status);
-            return;
-        }
-
-        const data = await response.json();
-        console.log('Gallery data loaded:', data);
+        const res = await fetch('content/gallery.json', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
         const photos = data.photos || [];
-        const galleryGrid = document.getElementById('gallery-grid');
+        if (!photos.length) return;
 
-        if (photos.length === 0) {
-            console.log('No photos found');
-            return;
-        }
-
-        galleryGrid.innerHTML = photos.map(item => `
+        const grid = document.getElementById('gallery-grid');
+        grid.innerHTML = photos.map(item => `
             <div class="gallery-item" onclick="openLightbox('${item.image}')">
                 <img src="${item.image}" alt="${item.title}" loading="lazy">
-            </div>
-        `).join('');
+                <div class="gallery-item-overlay"><span>${item.title}</span></div>
+            </div>`).join('');
 
-        // Add lightbox to body
         if (!document.querySelector('.lightbox')) {
-            const lightbox = document.createElement('div');
-            lightbox.className = 'lightbox';
-            lightbox.innerHTML = `
+            const lb = document.createElement('div');
+            lb.className = 'lightbox';
+            lb.innerHTML = `
                 <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-                <img class="lightbox-content" src="" alt="">
-            `;
-            document.body.appendChild(lightbox);
-
-            lightbox.addEventListener('click', function(e) {
-                if (e.target === lightbox) closeLightbox();
-            });
+                <img class="lightbox-content" src="" alt="">`;
+            document.body.appendChild(lb);
+            lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
         }
-    } catch (e) {
-        // Gallery file doesn't exist yet, keep default content
-        console.log('Gallery file not found, using placeholder');
-    }
+    } catch(e) { /* keep placeholder */ }
 }
 
-// Lightbox functions
 function openLightbox(src) {
-    const lightbox = document.querySelector('.lightbox');
-    const img = lightbox.querySelector('.lightbox-content');
-    img.src = src;
-    lightbox.classList.add('active');
+    const lb = document.querySelector('.lightbox');
+    lb.querySelector('.lightbox-content').src = src;
+    lb.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
-    const lightbox = document.querySelector('.lightbox');
-    lightbox.classList.remove('active');
+    document.querySelector('.lightbox').classList.remove('active');
     document.body.style.overflow = '';
 }
 
-// Close lightbox on Escape key
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
 });
