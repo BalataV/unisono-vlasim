@@ -522,7 +522,27 @@ img {
    About Section
    ================================ */
 .about {
-    background: var(--bg-light);
+    background: var(--bg-dark-2);
+    position: relative;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -20%;
+    width: 70%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(95,180,177,0.06) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.about .section-title { color: var(--white); }
+.about .section-subtitle { color: rgba(255,255,255,0.6); }
+
+.about-text p {
+    color: rgba(255,255,255,0.7) !important;
 }
 
 .about-content {
@@ -878,8 +898,42 @@ img {
    Events Section
    ================================ */
 .events {
-    background: var(--bg-light);
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
 }
+
+.events::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(95,180,177,0.06) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.events .section-title { color: var(--white); }
+.events .section-subtitle { color: rgba(255,255,255,0.6); }
+
+.events .event-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: none;
+}
+
+.events .event-card:hover {
+    background: rgba(255,255,255,0.09);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.events .event-title { color: var(--white); }
+
+.events .event-location,
+.events .event-time { color: rgba(255,255,255,0.55); }
+
+.events .events-note { color: rgba(255,255,255,0.4); }
 
 .events-list {
     max-width: 800px;
@@ -1139,8 +1193,7 @@ img {
 
 .footer-logo img {
     height: 60px;
-    filter: brightness(0) invert(1);
-    opacity: 0.8;
+    opacity: 0.85;
     transition: var(--transition);
 }
 
