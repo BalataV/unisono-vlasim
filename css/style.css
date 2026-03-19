@@ -2073,3 +2073,167 @@ img {
     .cal-day-name { font-size: 0.62rem; padding-bottom: 5px; }
     .cal-day-num { font-size: 0.78rem; }
 }
+
+/* ================================
+   Theme Toggle Button
+   ================================ */
+.theme-toggle {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--bg-dark);
+}
+
+/* Sun = přepnout na světlý, Moon = přepnout na tmavý */
+.theme-toggle .icon-sun  { display: block; }
+.theme-toggle .icon-moon { display: none;  }
+[data-theme="light"] .theme-toggle .icon-sun  { display: none;  }
+[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+/* Mobilní pořadí: logo | instagram(1) | theme-toggle(2) | hamburger(3) */
+@media (max-width: 768px) {
+    .theme-toggle { order: 2; }
+    .nav-toggle   { order: 3; }
+}
+
+/* ================================
+   Light Mode Theme
+   ================================ */
+[data-theme="light"] {
+    --bg-dark:   #f0f4f8;
+    --bg-dark-2: #dde4ed;
+    --primary-color:  #3a9997;
+    --primary-dark:   #2d7a78;
+    --primary-glow:   rgba(58,153,151,0.25);
+    --secondary-color:#1e3a5f;
+    --text-color: #1e3a5f;
+    --text-light: #4a6080;
+    --shadow:    0 4px 20px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.11);
+    --shadow-glow: 0 0 30px rgba(58,153,151,0.15);
+}
+
+/* Plynulý přechod při změně tématu */
+html { transition: background-color 0.35s ease; }
+.navbar, section, .footer, .event-card, .track,
+.contact-form, .flip-card-front, .flip-card-back,
+.events-calendar, .cal-detail-card, .theme-toggle {
+    transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+/* --- Navbar --- */
+[data-theme="light"] .navbar {
+    background: rgba(240,244,248,0.93);
+}
+[data-theme="light"] .navbar.scrolled {
+    background: rgba(240,244,248,0.97);
+    border-bottom: 1px solid rgba(30,58,95,0.1);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+[data-theme="light"] .nav-menu a         { color: var(--text-color) !important; }
+[data-theme="light"] .navbar:not(.scrolled) .nav-menu a.active { color: var(--primary-color) !important; }
+[data-theme="light"] .nav-instagram      { color: var(--text-color); }
+[data-theme="light"] .theme-toggle       { color: var(--text-color); background: rgba(30,58,95,0.08); border-color: rgba(30,58,95,0.18); }
+[data-theme="light"] .nav-toggle span    { background: var(--text-color); }
+[data-theme="light"] .nav-lang-item .lang-btn { color: var(--text-color); border-color: rgba(30,58,95,0.2); background: transparent; }
+[data-theme="light"] .nav-lang-item .lang-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+
+/* --- About --- */
+[data-theme="light"] .about .section-title    { color: var(--text-color) !important; }
+[data-theme="light"] .about .section-subtitle { color: var(--text-light) !important; }
+[data-theme="light"] .about-text p            { color: var(--text-light); }
+
+/* --- Events (seznam + kalendář) --- */
+[data-theme="light"] .events .section-title    { color: var(--text-color) !important; }
+[data-theme="light"] .events .section-subtitle { color: var(--text-light) !important; }
+[data-theme="light"] .event-card {
+    background: rgba(255,255,255,0.75);
+    border-color: rgba(30,58,95,0.12);
+}
+[data-theme="light"] .event-card:hover { background: rgba(255,255,255,0.95); }
+[data-theme="light"] .event-title    { color: var(--text-color); }
+[data-theme="light"] .event-location,
+[data-theme="light"] .event-location svg { color: var(--text-light); }
+
+/* Kalendář */
+[data-theme="light"] .events-calendar {
+    background: rgba(255,255,255,0.65);
+    border-color: rgba(30,58,95,0.15);
+}
+[data-theme="light"] .cal-month-title { color: var(--text-color); }
+[data-theme="light"] .cal-nav {
+    color: var(--text-color);
+    background: rgba(30,58,95,0.08);
+    border-color: rgba(30,58,95,0.2);
+}
+[data-theme="light"] .cal-nav:hover { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+[data-theme="light"] .cal-day-num   { color: var(--text-color); }
+[data-theme="light"] .cal-past .cal-day-num { color: rgba(30,58,95,0.33); }
+[data-theme="light"] .cal-detail-card { background: rgba(30,58,95,0.06); border-color: rgba(58,153,151,0.3); }
+[data-theme="light"] .cal-detail-card h4 { color: var(--text-color) !important; }
+[data-theme="light"] .cal-detail-card p  { color: var(--text-light)  !important; }
+
+/* --- Music --- */
+[data-theme="light"] .music .section-title    { color: var(--text-color) !important; }
+[data-theme="light"] .music .section-subtitle { color: var(--text-light) !important; }
+[data-theme="light"] .track          { border-bottom-color: rgba(30,58,95,0.1); }
+[data-theme="light"] .track-name     { color: var(--text-color); }
+[data-theme="light"] .track-number   { color: var(--text-light); }
+[data-theme="light"] .track-duration { color: var(--text-light); }
+[data-theme="light"] .video-section-title { color: var(--primary-color); }
+
+/* --- Gallery --- */
+[data-theme="light"] .gallery .section-title    { color: var(--text-color) !important; }
+[data-theme="light"] .gallery .section-subtitle { color: var(--text-light) !important; }
+[data-theme="light"] .gallery-placeholder {
+    background: rgba(30,58,95,0.05);
+    border-color: rgba(30,58,95,0.18);
+    color: var(--text-light);
+}
+
+/* --- Repertoár --- */
+[data-theme="light"] .repertoire .section-title    { color: var(--text-color) !important; }
+[data-theme="light"] .repertoire .section-subtitle { color: var(--text-light) !important; }
+[data-theme="light"] .ticker-item    { color: var(--text-color); }
+[data-theme="light"] .ticker-item em { color: var(--primary-color); }
+[data-theme="light"] .ticker-wrap::before { background: linear-gradient(to right,  var(--bg-dark-2), transparent); }
+[data-theme="light"] .ticker-wrap::after  { background: linear-gradient(to left, var(--bg-dark-2), transparent); }
+/* Flip card fronts mají barevné gradienty, text zůstane bílý */
+
+/* --- Kontakt --- */
+[data-theme="light"] .contact .section-title    { color: var(--text-color) !important; }
+[data-theme="light"] .contact .section-subtitle { color: var(--text-light) !important; }
+[data-theme="light"] .contact-item          { border-color: rgba(30,58,95,0.1); }
+[data-theme="light"] .contact-item:hover    { background: rgba(30,58,95,0.04); }
+[data-theme="light"] .contact-item strong   { color: var(--text-color); }
+[data-theme="light"] .contact-item a        { color: var(--text-color); }
+[data-theme="light"] .contact-form {
+    background: rgba(255,255,255,0.6);
+    border-color: rgba(30,58,95,0.1);
+}
+[data-theme="light"] .form-group label { color: var(--text-light); }
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea {
+    background: rgba(255,255,255,0.85);
+    border-color: rgba(30,58,95,0.2);
+    color: var(--text-color);
+}
+
+/* --- Footer --- */
+[data-theme="light"] .footer-links a   { color: var(--text-light); }
+[data-theme="light"] .social-link      { background: rgba(30,58,95,0.08); color: var(--text-light); border-color: rgba(30,58,95,0.15); }
+[data-theme="light"] .footer-bottom    { color: var(--text-light); border-top-color: rgba(30,58,95,0.1); }
