@@ -2065,4 +2065,11 @@ img {
     .hero-buttons { flex-direction: column; gap: 12px; align-items: center; }
     .contact-form { padding: 25px 20px; }
     .scroll-top { bottom: 20px; right: 15px; }
+
+    /* Kalendář – aby neděle nepřetékala ven */
+    .events-calendar { padding: 14px 10px; }
+    .cal-grid { gap: 2px; }
+    .cal-cell { min-height: 34px; border-radius: 7px; }
+    .cal-day-name { font-size: 0.62rem; padding-bottom: 5px; }
+    .cal-day-num { font-size: 0.78rem; }
 }
